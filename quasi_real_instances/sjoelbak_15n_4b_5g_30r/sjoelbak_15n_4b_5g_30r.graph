@@ -1,0 +1,19 @@
+type graph
+nodes 16
+map
+g1 g2
+g2 g1 g3
+g3 g2 g4
+g4 g3 g5
+g5 g4 b0p0 b1p0 b2p0 b3p0
+b0p0 g5 b0p1
+b0p1 b0p0 b0p2
+b0p2 b0p1 b0p3
+b0p3 b0p2
+b1p0 g5 b1p1
+b1p1 b1p0 b1p2
+b1p2 b1p1
+b2p0 g5 b2p1
+b2p1 b2p0
+b3p0 g5 b3p1
+b3p1 b3p0

@@ -25,7 +25,7 @@ class Scenario:
         self.agents.append(new_agent)
 
     def invert(self):
-        agents_copy = self.agents.copy
+        agents_copy = self.agents.copy()
         for agent in agents_copy:
             self.invert_agent(agent)
     

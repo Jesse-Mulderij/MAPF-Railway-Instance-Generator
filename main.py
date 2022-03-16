@@ -17,6 +17,7 @@ def main(args):
     num_of_instances_per_num_agents = args[6]   # number of instances for each fixed number of agents between min & max agents
     generate_random = args[7]                   # bool that indicates whether random starts and goals scenarios are generated
     generate_reversal = args[8]                 # bool that indicates whether reversal scenarios are generated
+    include_inverted_scen = args[9]
 
     Graph_gen = GraphGenerator()
     path = "/home/jesse/Documents/GitProjects/InstanceGenerator/quasi_real_instances/"
@@ -40,29 +41,35 @@ def main(args):
             if generate_random:
                 S = Scen_gen.generate_random("S", aa)
                 S.write_to_file(path_addon + str(aa) + "a_" + str(ii), path)
+                if include_inverted_scen:
+                    S.invert()
+                    S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii) + "_inv", path)
             elif generate_reversal:
                 S = Scen_gen.generate_complete_reversal("S", aa)
                 S.write_to_file(path_addon + str(aa) + "a_" + str(ii), path)
+                if include_inverted_scen:
+                    S.invert()
+                    S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii) + "_inv", path)
+
             # for agent in S.agents:
             #     print(agent.name)
             #     print(agent.start.name)
             #     print(agent.goal.name)
             #     print("\n")
-
-            S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii), path)
     return 0
 
 
 
-nodes = 20
-branches = 1
-gate_length = 10
-randomness_parameter = 0
+nodes = 15
+branches = 4
+gate_length = 5
+randomness_parameter = 30
 min_agents = 2
 max_agents = 10
-num_of_instances_per_num_agents = 1
-generate_random = False
-generate_reversal = True
+num_of_instances_per_num_agents = 5
+generate_random = True
+generate_reversal = False
+include_inverted_scen = True
 
-args = [nodes, branches, gate_length, randomness_parameter, min_agents, max_agents, num_of_instances_per_num_agents, generate_random, generate_reversal]
+args = [nodes, branches, gate_length, randomness_parameter, min_agents, max_agents, num_of_instances_per_num_agents, generate_random, generate_reversal, include_inverted_scen]
 main(args)
