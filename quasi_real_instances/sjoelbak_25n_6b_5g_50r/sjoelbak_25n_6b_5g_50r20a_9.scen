@@ -1,0 +1,46 @@
+version 1 graph
+sjoelbak_25n_6b_5g_50r.graph
+Num_of_Agents 20
+types
+agents starts
+0 g5
+1 b1p1
+2 g2
+3 b3p0
+4 b2p0
+5 b0p2
+6 b0p1
+7 b4p1
+8 b1p3
+9 b0p4
+10 g4
+11 b5p1
+12 b3p3
+13 b1p0
+14 b0p3
+15 g1
+16 b1p4
+17 b1p2
+18 b5p0
+19 b4p2
+goals
+0 b5p0
+1 b4p2
+2 b0p3
+3 b1p0
+4 b1p1
+5 b1p4
+6 b3p3
+7 b2p0
+8 b0p2
+9 g1
+10 b4p1
+11 b3p1
+12 b5p1
+13 b1p2
+14 g2
+15 g4
+16 b0p0
+17 b4p0
+18 b3p2
+19 b0p1

@@ -1,0 +1,24 @@
+type graph
+nodes 21
+map
+g1 g2
+g2 g1 g3
+g3 g2 g4
+g4 g3 g5
+g5 g4 g6
+g6 g5 g7
+g7 g6 g8
+g8 g7 g9
+g9 g8 g10
+g10 g9 b0p0
+b0p0 g10 b0p1
+b0p1 b0p0 b0p2
+b0p2 b0p1 b0p3
+b0p3 b0p2 b0p4
+b0p4 b0p3 b0p5
+b0p5 b0p4 b0p6
+b0p6 b0p5 b0p7
+b0p7 b0p6 b0p8
+b0p8 b0p7 b0p9
+b0p9 b0p8 b0p10
+b0p10 b0p9

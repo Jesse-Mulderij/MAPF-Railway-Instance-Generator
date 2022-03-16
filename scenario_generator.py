@@ -28,7 +28,7 @@ class ScenarioGenerator():
         goals = sorted(gate_nodes, key=lambda node: int(node.name[1:]) )
 
         for ii in range(num_of_agents):
-            print(ii)
+            # print(ii)
 
             new_agent = Agent(str(ii), starts[ii], goals[ii])
             S.add_agent(new_agent)
