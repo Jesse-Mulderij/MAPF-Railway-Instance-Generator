@@ -1,0 +1,33 @@
+type graph
+nodes 30
+map
+g1 g2
+g2 g1 g3
+g3 g2 g4
+g4 g3 b0p0 b1p0 b2p0 b3p0 b4p0 b5p0
+b0p0 g4 b0p1
+b0p1 b0p0 b0p2
+b0p2 b0p1 b0p3
+b0p3 b0p2 b0p4
+b0p4 b0p3 b0p5
+b0p5 b0p4 b0p6
+b0p6 b0p5 b0p7
+b0p7 b0p6 b0p8
+b0p8 b0p7 b0p9
+b0p9 b0p8 b0p10
+b0p10 b0p9 b0p11
+b0p11 b0p10
+b1p0 g4 b1p1
+b1p1 b1p0 b1p2
+b1p2 b1p1
+b2p0 g4 b2p1
+b2p1 b2p0 b2p2
+b2p2 b2p1 b2p3
+b2p3 b2p2 b2p4
+b2p4 b2p3
+b3p0 g4 b3p1
+b3p1 b3p0
+b4p0 g4 b4p1
+b4p1 b4p0
+b5p0 g4 b5p1
+b5p1 b5p0
