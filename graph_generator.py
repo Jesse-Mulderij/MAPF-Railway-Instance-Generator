@@ -40,16 +40,20 @@ class GraphGenerator():
 
     def generate_sjoelbak(self, name : string, num_of_nodes : int, num_of_branches : int, gate_length : int, rand_par : float) -> Graph:
         G = Graph(name, [])
-        if(num_of_nodes < num_of_branches + gate_length):
+        if(num_of_nodes < (num_of_branches + gate_length) ):
+            print("Number of nodes is " + str(num_of_nodes) + "\n")
+            print("Number of branches is " + str(num_of_branches) + "\n")
+            print("Gate length is " + str(gate_length) + "\n")
+            print(str(num_of_nodes) + " < " + str(num_of_branches) + " + " + str(gate_length))
             raise Exception("Not enough nodes to divide over gate and branches")
         
         # Construct gate
-        new_node = Node("g" + str(0),[])
+        new_node = Node("g-" + str(0),[])
         for ii in range(1, gate_length+1):
-            new_node = Node("g" + str(ii),[])
+            new_node = Node("g-" + str(ii),[])
             G.add_node(new_node)
             for node in G.nodes:
-                if node.name == "g" + str(ii-1):
+                if node.name == "g-" + str(ii-1):
                     G.add_edge(new_node, node)
         root_node = new_node
 
@@ -64,13 +68,13 @@ class GraphGenerator():
             index = ( index + 1 ) % num_of_branches
 
         for ii in range(num_of_branches):
-            new_node = Node("b" + str(ii) + "p0",[])
+            new_node = Node("b-" + str(ii) + "-p-0",[])
             G.add_node(new_node)
             G.add_edge(new_node,root_node)
             for jj in range(1, branch_lengths[ii]):
-                new_node = Node("b" + str(ii) + "p" + str(jj),[])
+                new_node = Node("b-" + str(ii) + "-p-" + str(jj),[])
                 G.add_node(new_node)
                 for node in G.nodes:
-                    if ( node.name == ("b" + str(ii) + "p" + str(jj-1) )):
+                    if ( node.name == ("b-" + str(ii) + "-p-" + str(jj-1) )):
                         G.add_edge(new_node, node)
         return G

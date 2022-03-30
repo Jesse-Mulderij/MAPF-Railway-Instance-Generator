@@ -1,0 +1,18 @@
+version 1 graph
+sjoelbak_random_50n_8b_15g_0.5r.graph
+Num_of_Agents 6
+types
+agents starts
+0 g-3
+1 g-7
+2 b-7-p-0
+3 b-1-p-2
+4 b-4-p-2
+5 b-2-p-3
+goals
+0 g-13
+1 b-0-p-1
+2 g-7
+3 g-12
+4 g-6
+5 b-2-p-0

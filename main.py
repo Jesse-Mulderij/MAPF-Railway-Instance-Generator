@@ -1,27 +1,25 @@
-from numpy import number
 from graph_generator import GraphGenerator
-from graph import Graph
-from node import Node
 from scenario_generator import ScenarioGenerator
-from scenario import Scenario
-from agent import Agent
+
 import os
+import configparser
+
 
 def main(args):
-    nodes = args[0]                             # total nodes in the graph
-    branches = args[1]                          # number of branches of the sjoelbak
-    gate_length = args[2]                       # length of the arrival/departure (gate) track
-    randomness_parameter = args[3]              # 0 < x < 100 ; how much variety in length of the branches
-    min_agents = args[4]                        # minimum number of agents
-    max_agents = args[5]                        # maximum number of agents
-    num_of_instances_per_num_agents = args[6]   # number of instances for each fixed number of agents between min & max agents
-    generate_random = args[7]                   # bool that indicates whether random starts and goals scenarios are generated
-    generate_reversal = args[8]                 # bool that indicates whether reversal scenarios are generated
-    include_inverted_scen = args[9]
+    nodes = int(args[0])                            # total nodes in the graph
+    branches = int(args[1])                         # number of branches of the sjoelbak
+    gate_length = int(args[2])                      # length of the arrival/departure (gate) track
+    randomness_parameter = float(args[3])           # 0 < x < 100 ; how much variety in length of the branches
+    min_agents = int(args[4])                       # minimum number of agents
+    max_agents = int(args[5])                       # maximum number of agents
+    num_of_instances_per_num_agents = int(args[6])  # number of instances for each fixed number of agents between min & max agents
+    instance_type = args[7]                         # string that indicates which type of instances should be generated, options : random, reversal, arrival, departure
+    include_inverted_scen = args[8] == "True"       # bool that indicates whether inverted instances should also be generated
 
     Graph_gen = GraphGenerator()
     path = "/home/jesse/Documents/GitProjects/InstanceGenerator/quasi_real_instances/"
     path_addon = "sjoelbak_" # carrousel not implemented as of yet
+    path_addon += instance_type + "_"
     path_addon += str(nodes) + "n_"
     path_addon += str(branches) + "b_"
     path_addon += str(gate_length) + "g_"
@@ -32,24 +30,28 @@ def main(args):
     except FileExistsError:
         print()
 
-
     G = Graph_gen.generate_sjoelbak(path_addon, nodes, branches, gate_length, float(randomness_parameter)/100)
     G.write_to_file(path)
     Scen_gen = ScenarioGenerator(G)
     for aa in range(min_agents,max_agents+1):
         for ii in range(num_of_instances_per_num_agents):
-            if generate_random:
+            if instance_type == "random": # random start and goal locations are assigned to agents
                 S = Scen_gen.generate_random("S", aa)
-                S.write_to_file(path_addon + str(aa) + "a_" + str(ii), path)
-                if include_inverted_scen:
-                    S.invert()
-                    S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii) + "_inv", path)
-            elif generate_reversal:
+                S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii), path)
+            elif instance_type == "reversal": # agents are placed on gate track in an order which has to be reversed
                 S = Scen_gen.generate_complete_reversal("S", aa)
-                S.write_to_file(path_addon + str(aa) + "a_" + str(ii), path)
-                if include_inverted_scen:
-                    S.invert()
-                    S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii) + "_inv", path)
+                S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii), path)
+            elif instance_type == "arrival": # agents start on gate tracks and are assigned goal locations on the parking tracks
+                S = Scen_gen.generate_arrival("S", aa)
+                S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii), path)
+            elif instance_type == "departure": # agents start on parking tracks and are assigned goal locations on the gate tracks
+                S = Scen_gen.generate_departure("S", aa)
+                S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii), path)
+            
+            # Inverted scenario is produced if required
+            if include_inverted_scen:
+                S.invert()
+                S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(ii) + "_inv", path)
 
             # for agent in S.agents:
             #     print(agent.name)
@@ -60,16 +62,6 @@ def main(args):
 
 
 
-nodes = 15
-branches = 4
-gate_length = 5
-randomness_parameter = 30
-min_agents = 2
-max_agents = 10
-num_of_instances_per_num_agents = 5
-generate_random = True
-generate_reversal = False
-include_inverted_scen = True
-
-args = [nodes, branches, gate_length, randomness_parameter, min_agents, max_agents, num_of_instances_per_num_agents, generate_random, generate_reversal, include_inverted_scen]
-main(args)
+cp = configparser.ConfigParser()
+cp.read("settings.ini")
+main(list(cp['INVERSE'].values()))
