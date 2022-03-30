@@ -10,7 +10,8 @@ cp['DEFAULT'] = {
 'max_agents' : 10,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'random', # options : random, reversal, arrival, departure
-'include_inverted_scen' : False
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0
 }
 
 cp['RANDOM'] = {
@@ -22,7 +23,8 @@ cp['RANDOM'] = {
 'max_agents' : 10,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'random', # options : random, reversal, arrival, departure
-'include_inverted_scen' : False
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0
 }
 
 cp['REVERSAL'] = {
@@ -34,7 +36,8 @@ cp['REVERSAL'] = {
 'max_agents' : 10,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'reversal', # options : random, reversal, arrival, departure
-'include_inverted_scen' : False
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0
 }
 
 cp['ARRIVAL'] = {
@@ -46,7 +49,8 @@ cp['ARRIVAL'] = {
 'max_agents' : 15,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'arrival', # options : random, reversal, arrival, departure
-'include_inverted_scen' : False
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0
 }
 
 cp['DEPARTURE'] = {
@@ -58,7 +62,8 @@ cp['DEPARTURE'] = {
 'max_agents' : 15,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'departure', # options : random, reversal, arrival, departure
-'include_inverted_scen' : False
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0
 }
 
 cp['INVERSE'] = {
@@ -70,11 +75,22 @@ cp['INVERSE'] = {
 'max_agents' : 15,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'random', # options : random, reversal, arrival, departure
-'include_inverted_scen' : True
+'include_inverted_scen' : True,
+'goal_swap_fraction' : 0
 }
 
-
-
+cp['HARD ARRIVAL'] = {
+'nodes' : 50,
+'branches' : 8,
+'gate_length' : 15,
+'randomness_parameter' : 0.5,
+'min_agents' : 2,
+'max_agents' : 15,
+'num_of_instances_per_num_agents' : 10,
+'instance_type' : 'arrival', # options : random, reversal, arrival, departure
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0.5
+}
 
 
 with open("settings.ini", 'w') as f:
