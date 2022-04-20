@@ -1,6 +1,8 @@
 from platform import node
 import string
 from random import sample
+
+from numpy import void
 from node import Node
 from agent import Agent
 from graph import Graph
@@ -43,13 +45,28 @@ class Scenario:
         a2.goal = goal1
 
     def swap_goals(self, f : float):
-        print(f)
         agent_sample = sample(self.agents, round(f * self.agents.__len__()))
         for a1 in agent_sample:
             agent_sample.remove(a1)
             try:
-                a2 = agent_sample.pop(-1)
+                otheragents = [1 for agent in self.agents]
+                otheragents[self.agents.index(a1)] = 0
+                a2 = sample(self.agents, 1, counts=otheragents).pop()
                 self.swap_goals_pair(a1, a2)
+                # print("(" + a1.name + "," + a2.name + ")")
+            except Exception as e:
+                #print(e)
+                continue
+
+    def swap_starts(self, f : float):
+        agent_sample = sample(self.agents, round(f * self.agents.__len__()))
+        for a1 in agent_sample:
+            agent_sample.remove(a1)
+            try:
+                otheragents = [1 for agent in self.agents]
+                otheragents[self.agents.index(a1)] = 0
+                a2 = sample(self.agents, 1, counts=otheragents).pop()
+                self.swap_starts_pair(a1, a2)
                 # print("(" + a1.name + "," + a2.name + ")")
             except Exception as e:
                 # print(e)

@@ -78,3 +78,19 @@ class GraphGenerator():
                     if ( node.name == ("b-" + str(ii) + "-p-" + str(jj-1) )):
                         G.add_edge(new_node, node)
         return G
+
+    def generate_carrousel(self, name : string, num_of_nodes : int, num_of_branches : int, gate_length : int, rand_par : float) -> Graph:
+        G = self.generate_sjoelbak(name, num_of_nodes, num_of_branches, gate_length, rand_par)
+        heads = [None for branch in range(G.num_of_branches())]
+        for node in G.nodes:
+            if node.name[0] != "b":
+                continue
+            for branch in range(G.num_of_branches()):
+                if node.in_branch(branch):
+                    if heads[branch] == None:
+                        heads[branch] = node
+                    elif heads[branch].dist_to_root() < node.dist_to_root:
+                        heads[branch] = node
+        for branch in range(G.num_of_branches()-1):
+            G.add_edge(heads[branch], heads[branch+1])
+        return G

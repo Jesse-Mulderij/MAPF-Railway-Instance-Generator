@@ -18,6 +18,7 @@ def main(args):
         instance_type = args[7]                         # string that indicates which type of instances should be generated, options : random, reversal, arrival, departure
         include_inverted_scen = args[8] == "True"       # bool that indicates whether inverted instances should also be generated
         goal_swap_fraction = float(args[9])
+        start_swap_fraction = float(args[10])
     except Exception as e:
         print("Reading arguments failed due to" + e)
 
@@ -49,8 +50,9 @@ def main(args):
                 S = Scen_gen.generate_arrival("S", aa)
             elif instance_type == "departure": # agents start on parking tracks and are assigned goal locations on the gate tracks
                 S = Scen_gen.generate_departure("S", aa)
+            S.swap_starts(start_swap_fraction)
             S.swap_goals(goal_swap_fraction)
-            S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(goal_swap_fraction) + "gsf_" + str(ii), path)
+            S.write_to_file(path_addon + "_" + str(aa) + "a_" + str(goal_swap_fraction) + "gsf_" + str(start_swap_fraction) + "ssf_" + str(ii), path)
             # Inverted scenario is produced if required
             if include_inverted_scen:
                 S.invert()

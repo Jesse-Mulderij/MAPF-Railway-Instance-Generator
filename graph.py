@@ -1,4 +1,6 @@
+from logging import exception
 from platform import node
+from re import T
 import string
 from node import Node
 
@@ -37,6 +39,16 @@ class Graph:
         num_of_edges = sum(node.degree() for node in self.nodes) / 2
         return num_of_edges / num_of_nodes
 
+    def num_of_branches(self) -> int:
+        num_of_branches = 0
+        for node in self.nodes:
+            if node.name[0] != "b":
+                continue
+            else:
+                branch_num = int(node.name.split("-")[1])
+                num_of_branches = max(num_of_branches, branch_num)
+        return num_of_branches
+
     def write_to_file(self, dir : string):
         file_name = self.name + ".graph"
         first_lines = "type graph" + "\n"
@@ -51,4 +63,3 @@ class Graph:
         f = open(dir + file_name,'w')
         f.write(first_lines + body)
         f.close()
-
