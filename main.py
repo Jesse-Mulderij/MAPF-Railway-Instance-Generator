@@ -7,9 +7,10 @@ import configparser
 
 
 def main(args):
+    # Parse arguments
     try:
         nodes = int(args[0])                            # total nodes in the graph
-        branches = int(args[1])                         # number of branches of the sjoelbak
+        branches = int(args[1])                         # number of branches of the sjoelbak or the width of the grid
         gate_length = int(args[2])                      # length of the arrival/departure (gate) track
         randomness_parameter = float(args[3])           # 0 < x < 100 ; how much variety in length of the branches
         min_agents = int(args[4])                       # minimum number of agents
@@ -17,28 +18,41 @@ def main(args):
         num_of_instances_per_num_agents = int(args[6])  # number of instances for each fixed number of agents between min & max agents
         instance_type = args[7]                         # string that indicates which type of instances should be generated, options : random, reversal, arrival, departure
         include_inverted_scen = args[8] == "True"       # bool that indicates whether inverted instances should also be generated
-        goal_swap_fraction = float(args[9])
+        goal_swap_fraction = float(args[9])             
         start_swap_fraction = float(args[10])
+        graph_type = args[11]                           # string that sets the type of graph that is generated, options : shuffleboard, carrousel, grid (not implemented) 
     except Exception as e:
         print("Reading arguments failed due to" + e)
-
-
-    Graph_gen = GraphGenerator()
+    
+    # Set path
     path = "/home/jesse/Documents/GitProjects/InstanceGenerator/quasi_real_instances/"
-    path_addon = "sjoelbak_" # carrousel not implemented as of yet
+    path_addon = graph_type + "_" # carrousel not implemented as of yet
     path_addon += instance_type + "_"
     path_addon += str(nodes) + "n_"
     path_addon += str(branches) + "b_"
     path_addon += str(gate_length) + "g_"
     path_addon += str(randomness_parameter) + "r"
     path+=path_addon + "/"
+    
+    # Generate storage dir
     try:
         os.mkdir(path)
     except FileExistsError:
         print()
 
-    G = Graph_gen.generate_sjoelbak(path_addon, nodes, branches, gate_length, float(randomness_parameter)/100)
+    # Generate the graph and write to file
+    Graph_gen = GraphGenerator()
+    if graph_type == "shuffleboard":
+        G = Graph_gen.generate_sjoelbak(path_addon, nodes, branches, gate_length, float(randomness_parameter)/100)
+    elif graph_type == "carrousel":
+        G = Graph_gen.generate_carrousel(path_addon, nodes, branches, gate_length, float(randomness_parameter)/100)
+    elif graph_type == "grid":
+        G = Graph_gen.generate_grid(path_addon, nodes, branches)
+    else:
+        raise Exception("Invalid graph type specified")
     G.write_to_file(path)
+
+    # Generate scenarios and write them to files
     Scen_gen = ScenarioGenerator(G)
     for aa in range(min_agents,max_agents+1):
         for ii in range(num_of_instances_per_num_agents):
@@ -66,7 +80,7 @@ def main(args):
     return 0
 
 
-
+# Read config file and run main with specified settings
 cp = configparser.ConfigParser()
 cp.read("settings.ini")
-main(list(cp['HARD ARRIVAL'].values()))
+main(list(cp['RANDOM SHUFFLEBOARD'].values()))

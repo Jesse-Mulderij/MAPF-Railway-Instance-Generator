@@ -12,21 +12,53 @@ cp['DEFAULT'] = {
 'instance_type' : 'random', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
-cp['RANDOM'] = {
-'nodes' : 30,
+cp['RANDOM SHUFFLEBOARD'] = {
+'nodes' : 25,
 'branches' : 5,
-'gate_length' : 10,
-'randomness_parameter' : 0.5,
+'gate_length' : 5,
+'randomness_parameter' : 0,
 'min_agents' : 2,
-'max_agents' : 10,
+'max_agents' : 20,
 'num_of_instances_per_num_agents' : 10,
 'instance_type' : 'random', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
+}
+
+cp['RANDOM CARROUSEL'] = {
+'nodes' : 25,
+'branches' : 5,
+'gate_length' : 5,
+'randomness_parameter' : 0,
+'min_agents' : 2,
+'max_agents' : 20,
+'num_of_instances_per_num_agents' : 10,
+'instance_type' : 'random', # options : random, reversal, arrival, departure
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0,
+'start_swap_fraction' : 0,
+'graph_type' : 'carrousel' #options : shuffleboard, carrousel, grid (not implemented)
+}
+
+cp['RANDOM GRID'] = {
+'nodes' : 25,
+'branches' : 5,
+'gate_length' : 5,
+'randomness_parameter' : 0,
+'min_agents' : 2,
+'max_agents' : 20,
+'num_of_instances_per_num_agents' : 10,
+'instance_type' : 'random', # options : random, reversal, arrival, departure
+'include_inverted_scen' : False,
+'goal_swap_fraction' : 0,
+'start_swap_fraction' : 0,
+'graph_type' : 'grid' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 cp['REVERSAL'] = {
@@ -40,7 +72,8 @@ cp['REVERSAL'] = {
 'instance_type' : 'reversal', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 cp['ARRIVAL'] = {
@@ -54,7 +87,8 @@ cp['ARRIVAL'] = {
 'instance_type' : 'arrival', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 cp['DEPARTURE'] = {
@@ -68,7 +102,8 @@ cp['DEPARTURE'] = {
 'instance_type' : 'departure', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 cp['INVERSE'] = {
@@ -82,7 +117,8 @@ cp['INVERSE'] = {
 'instance_type' : 'random', # options : random, reversal, arrival, departure
 'include_inverted_scen' : True,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 cp['HARD ARRIVAL'] = {
@@ -96,7 +132,8 @@ cp['HARD ARRIVAL'] = {
 'instance_type' : 'arrival', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0,
-'start_swap_fraction' : 0.5
+'start_swap_fraction' : 0.5,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 cp['HARD DEPARTURE'] = {
@@ -110,7 +147,8 @@ cp['HARD DEPARTURE'] = {
 'instance_type' : 'departure', # options : random, reversal, arrival, departure
 'include_inverted_scen' : False,
 'goal_swap_fraction' : 0.5,
-'start_swap_fraction' : 0
+'start_swap_fraction' : 0,
+'graph_type' : 'shuffleboard' #options : shuffleboard, carrousel, grid (not implemented)
 }
 
 

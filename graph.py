@@ -21,12 +21,15 @@ class Graph:
         self.nodes.remove(node)
 
     def add_edge(self, node1 : Node, node2 : Node):
-        for node in self.nodes:
-            if(node == node1):
-                node.add_neighbor(node2)
-            if(node == node2):
-                node.add_neighbor(node1)
-    
+        if node1 == node2:
+            return
+        else:
+            for node in self.nodes:
+                if(node == node1):
+                    node.add_neighbor(node2)
+                if(node == node2):
+                    node.add_neighbor(node1)
+        
     def remove_edge(self, node1 : Node, node2 : Node):
         for node in self.nodes:
             if(node == node1):
@@ -47,7 +50,7 @@ class Graph:
             else:
                 branch_num = int(node.name.split("-")[1])
                 num_of_branches = max(num_of_branches, branch_num)
-        return num_of_branches
+        return num_of_branches + 1 # there's a 0th branch
 
     def write_to_file(self, dir : string):
         file_name = self.name + ".graph"

@@ -2,8 +2,6 @@ from platform import node
 import string
 from random import sample
 
-from numpy import void
-from node import Node
 from agent import Agent
 from graph import Graph
 
@@ -24,7 +22,7 @@ class Scenario:
 
     def invert_agent(self, agent : Agent):
         self.agents.remove(agent)
-        new_agent = Agent(agent.name, agent.goal, agent.start)
+        new_agent = Agent(agent.name, agent.color, agent.goal, agent.start)
         self.agents.append(new_agent)
 
     def invert(self):
@@ -58,6 +56,13 @@ class Scenario:
                 #print(e)
                 continue
 
+    def get_types(self) -> list:
+        types = []
+        for agent in self.agents:
+            if types.count(agent.type) == 0:
+                types.append(agent.type)
+        return types
+
     def swap_starts(self, f : float):
         agent_sample = sample(self.agents, round(f * self.agents.__len__()))
         for a1 in agent_sample:
@@ -77,13 +82,19 @@ class Scenario:
         first_lines = "version 1 graph" + "\n"
         first_lines += self.graph.name + ".graph" + "\n"
         first_lines += "Num_of_Agents " + str(self.agents.__len__()) + "\n"
-        body = "types" + "\n" # types not implemented
+        body = "types" + "\n"
+        for type in self.get_types():
+            body += type
+            for agent in self.agents:
+                if agent.type == type:
+                    body += " " + agent.to_string()
+            body += "\n"
         body += "agents starts" + "\n"
         for agent in self.agents:
             body += agent.to_string() + " " + agent.start.to_string() + "\n"
         body += "goals"
         for agent in self.agents:
-            body += "\n" + agent.to_string() + " " + agent.goal.to_string()
+            body += "\n" + agent.type + " " + agent.goal.to_string()
         f = open(dir + "/" + file_name, 'w')
         f.write(first_lines + body)
         f.close()

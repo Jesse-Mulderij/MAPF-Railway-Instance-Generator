@@ -18,7 +18,7 @@ class ScenarioGenerator():
         starts = random.sample(self.graph.nodes,num_of_agents)
         goals = random.sample(self.graph.nodes, num_of_agents)
         for ii in range(num_of_agents):
-            new_agent = Agent(str(ii), starts[ii], goals[ii])
+            new_agent = Agent(str(ii), None, starts[ii], goals[ii])
             S.add_agent(new_agent)
         return S
 
@@ -31,7 +31,7 @@ class ScenarioGenerator():
         for ii in range(num_of_agents):
             # print(ii)
 
-            new_agent = Agent(str(ii), starts[ii], goals[ii])
+            new_agent = Agent(str(ii), None, starts[ii], goals[ii])
             S.add_agent(new_agent)
         return S
 
@@ -45,7 +45,7 @@ class ScenarioGenerator():
         for ii in range(num_of_agents):
             # print(ii)
 
-            new_agent = Agent(str(ii), starts[ii], goals[ii])
+            new_agent = Agent(str(ii), None, starts[ii], goals[ii])
             S.add_agent(new_agent)
         return S
 
@@ -59,6 +59,6 @@ class ScenarioGenerator():
         for ii in range(num_of_agents):
             # print(ii)
 
-            new_agent = Agent(str(ii), starts[ii], goals[ii])
+            new_agent = Agent(str(ii), None, starts[ii], goals[ii])
             S.add_agent(new_agent)
         return S

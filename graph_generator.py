@@ -61,7 +61,7 @@ class GraphGenerator():
         branch_lengths = [1 for i in range(num_of_branches)]
         nodes_to_do = num_of_nodes - num_of_branches - gate_length
         index = 0
-        while nodes_to_do >= 0:
+        while nodes_to_do > 0:
             increase = 1 + round(random.uniform(0,1)*rand_par*(nodes_to_do-1))
             branch_lengths[index] += increase
             nodes_to_do -= increase
@@ -89,8 +89,27 @@ class GraphGenerator():
                 if node.in_branch(branch):
                     if heads[branch] == None:
                         heads[branch] = node
-                    elif heads[branch].dist_to_root() < node.dist_to_root:
+                    elif heads[branch].dist_to_root() < node.dist_to_root():
                         heads[branch] = node
         for branch in range(G.num_of_branches()-1):
             G.add_edge(heads[branch], heads[branch+1])
+        return G
+
+    def generate_grid(self, name: string, num_of_nodes: int, width : int) -> Graph:
+        G = Graph(name, [])
+        if num_of_nodes % width != 0:
+            raise Exception("Num of nodes not divisible by width")
+        height = int(num_of_nodes / width)
+
+        # Generate Nodes
+        for y1 in range(height):
+            for x1 in range(width):
+                neighbors = []
+                for x2 in [x1+1, x1, x1-1]:
+                    for y2 in [y1+1, y1, y1-1]:
+                        if abs(x1-x2) + abs(y1-y2) == 1 and x2 >= 0 and y2 >= 0  and x2 < width and y2 < height:
+                            n2 = Node("(" + str(x2) + "," + str(y2) + ")", [])
+                            neighbors.append(n2)
+                n = Node("(" + str(x1) + "," + str(y1) + ")", neighbors)                
+                G.add_node(n)
         return G
