@@ -1,0 +1,14 @@
+type graph
+nodes 11
+map
+g-1 g-2
+g-2 g-1 g-3
+g-3 g-2 g-4
+g-4 g-3 g-5
+g-5 g-4 b-0-p-0 b-1-p-0 b-2-p-0
+b-0-p-0 g-5 b-0-p-1
+b-0-p-1 b-0-p-0
+b-1-p-0 g-5 b-1-p-1
+b-1-p-1 b-1-p-0
+b-2-p-0 g-5 b-2-p-1
+b-2-p-1 b-2-p-0

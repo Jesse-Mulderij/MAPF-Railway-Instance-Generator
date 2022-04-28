@@ -29,10 +29,41 @@ class ScenarioGenerator():
         goals = sorted(gate_nodes, key=lambda node: int(node.name[1:]) )
 
         for ii in range(num_of_agents):
-            # print(ii)
-
             new_agent = Agent(str(ii), None, starts[ii], goals[ii])
             S.add_agent(new_agent)
+        return S
+
+    def generate_standstill(self, name: string, num_of_agents : int) -> Scenario:
+        S = Scenario(name, self.graph, [])
+        gate_nodes = [node for node in self.graph.nodes if node.name[0] == 'g']
+        starts = sorted(gate_nodes, key=lambda node: -int(node.name[1:]) )
+        goals = sorted(gate_nodes, key=lambda node: -int(node.name[1:]) )
+
+        for ii in range(num_of_agents):
+            new_agent = Agent(str(ii), None, starts[ii], goals[ii])
+            S.add_agent(new_agent)
+        return S
+
+    def generate_reversal(self, name: string, num_of_agents : int, tau : int) -> Scenario:
+        S = Scenario(name, self.graph, [])
+        gate_nodes = [node for node in self.graph.nodes if node.name[0] == 'g']
+        starts = sorted(gate_nodes, key=lambda node: -int(node.name[1:]) )
+        goals = sorted(gate_nodes, key=lambda node: int(node.name[1:]) )
+
+        for ii in range(num_of_agents):
+            new_agent = Agent(str(ii), None, starts[ii], goals[ii])
+            S.add_agent(new_agent)
+        return S
+
+    def generate_sequence(self, name : string, sequence: list[int]) -> Scenario:
+        S = Scenario(name, self.graph, [])
+        gate_nodes = [node for node in self.graph.nodes if node.name[0] == 'g']
+        starts = sorted(gate_nodes, key=lambda node: -int(node.name[2:]) )
+        goals = starts
+        
+        for aa in range(sequence.__len__()):
+            new_agent = Agent(str(aa), None, starts[sequence[aa]], goals[aa])
+            S.add_agent( new_agent )
         return S
 
     def generate_arrival(self, name: string, num_of_agents : int) -> Scenario:
@@ -43,8 +74,6 @@ class ScenarioGenerator():
         goals = sorted(parking_nodes, key=lambda node: -int(split("-",node.name)[-1]) )
 
         for ii in range(num_of_agents):
-            # print(ii)
-
             new_agent = Agent(str(ii), None, starts[ii], goals[ii])
             S.add_agent(new_agent)
         return S

@@ -1,6 +1,8 @@
 from platform import node
 import string
 from random import sample
+from numpy import random
+import numpy as np
 
 from agent import Agent
 from graph import Graph
@@ -42,8 +44,8 @@ class Scenario:
         a1.goal = goal2
         a2.goal = goal1
 
-    def swap_goals(self, f : float):
-        agent_sample = sample(self.agents, round(f * self.agents.__len__()))
+    def swap_goals(self, i : int):
+        agent_sample = sample(self.agents, i)
         for a1 in agent_sample:
             agent_sample.remove(a1)
             try:
@@ -52,7 +54,7 @@ class Scenario:
                 a2 = sample(self.agents, 1, counts=otheragents).pop()
                 self.swap_goals_pair(a1, a2)
                 # print("(" + a1.name + "," + a2.name + ")")
-            except Exception as e:
+            except Exception: # as e:
                 #print(e)
                 continue
 
@@ -63,8 +65,8 @@ class Scenario:
                 types.append(agent.type)
         return types
 
-    def swap_starts(self, f : float):
-        agent_sample = sample(self.agents, round(f * self.agents.__len__()))
+    def swap_starts(self, i : int):
+        agent_sample = sample(self.agents, i)
         for a1 in agent_sample:
             agent_sample.remove(a1)
             try:
@@ -76,6 +78,10 @@ class Scenario:
             except Exception as e:
                 # print(e)
                 continue
+
+    def match(self, num_of_types : int):
+        for agent in random.permutation(self.agents):
+            agent.match(num_of_types)
 
     def write_to_file(self, filename : string, dir : string):
         file_name = filename + ".scen"
